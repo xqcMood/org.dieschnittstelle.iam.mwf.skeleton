@@ -46,9 +46,6 @@ export default class ListviewViewController extends mwf.ViewController {
                 this.removeFromListview(event.data);
             })
         );
-        this.addListener(new mwf.EventMatcher("crud","created","MediaItem"),((event) => {
-        this.addToListview(event.data);
-    }));
         this.addListener(new mwf.EventMatcher("crud","updated","MediaItem"),((event) => {
         this.updateInListview(event.data._id,event.data);
     }));
@@ -107,7 +104,6 @@ export default class ListviewViewController extends mwf.ViewController {
             item: newItem,
             actionBindings: {
                 submitForm: ((event) => {
-                    event.original.preventDefault();
                     newItem.create().then(() => {
                         this.addToListview(newItem);
                     });
@@ -183,6 +179,7 @@ export default class ListviewViewController extends mwf.ViewController {
         //this.crudops.delete(item._id).then(() => {
         //    this.removeFromListview(item._id);
         //});
+
         item.delete(() => {
             this.removeFromListview(item._id);
         });

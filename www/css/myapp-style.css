@@ -4,3 +4,10 @@
     width: 100%;
     max-width: 100%;
 }
+
+.deleteDialogText {
+    color: black;
+}
+
+#database-status {
+vertical-align: -40%;}

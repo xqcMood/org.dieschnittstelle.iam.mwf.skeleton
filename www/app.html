@@ -51,8 +51,8 @@
         </ul>
     </main>
     <footer>
-
-    <button class="mwf-imgbutton mwf-right-align mwf-img-refresh"></button>
+        <a id="database-status"></a>
+        <button class="mwf-imgbutton mwf-right-align mwf-img-refresh"></button>
     </footer>
 </div>
 <div class="mwf-view" id="mediaReadview"
@@ -68,7 +68,6 @@
         <img src="{{item.src}}"/>
     </main>
     <footer>
-        <h2 id="database-status"></h2>
         <button class="mwf-back mwf-imgbutton mwf-img-backward"></button>
     </footer>
     </div>
@@ -76,6 +75,18 @@
 <div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component mwf-shown"
      data-mwf-viewcontroller="GenericDialogTemplateViewController"
      data-mwf-templatename="mediaItemDialog">
+    <h2>{{#if item.created}}Medium editieren{{else}}Neues Medium{{/if}}</h2>
+    <form id="itemEditForm" on-submit="submitForm">
+        <input name="title" autocomplete="off" class="mwf-autofocus" type="text" placeholder="Titel"
+               required="required"value="{{item.title}}"/>
+        <div class="mwf-buttonbar">
+            <button class="mwf-left-align mwf-button"
+                    disabled="{{#unless item.created}}disabled{{/unless}}"type="button" on-click="deleteItem">Löschen</button>
+            <input class="mwf-button-prio mwf-right-align mwf-button" type="submit" value="{{#if item.created}}Ändern{{else}}Hinzufügen{{/if}}"/>
+        </div>
+    </form>
+    </main>
+</div>
     <!-- delete dialog -->
     <div class="mwf-dialog mwf-popup mwf-template mwf-databind mwf-view-component mwf-shown"
          data-mwf-viewcontroller="GenericDialogTemplateViewController"
@@ -83,33 +94,21 @@
     <main>
         <h2>MEDIUM LÖSCHEN</h2>
         <form id="itemDeleteForm">
-            <div class="deleteDialogText">
-                Möchten Sie das Medium {{item.title}} löschen?
+            <div class="deleteDialogText" style="color:black;">
+                 Möchten Sie das Medium {{item.title}} löschen?
             </div>
             <div class="mwf-buttonbar">
                 <button class="mwf-left-align mwf-button"
-                        type="button">Abbrechen
+                        on-click="this.hideDialog()">Abbrechen
                 </button>
-                <button class="mwf-button-prio mwf-left-align mwf-button"
-                        type="button" on-click="deleteItem">Löschen
+                <button class="mwf-button-prio mwf-left-align mwf-button" on-click="deleteItem">Löschen
                 </button>
             </div>
         </form>
     </main>
     </div>
 
-        <h2>{{#if item.created}}Medium editieren{{else}}Neues Medium{{/if}}</h2>
-        <form id="itemEditForm" on-submit="submitForm">
-            <input name="title" autocomplete="off" class="mwf-autofocus" type="text" placeholder="Titel"
-                   required="required"value="{{item.title}}"/>
-            <div class="mwf-buttonbar">
-                <button class="mwf-left-align mwf-button"
-                        disabled="{{#unless item.created}}disabled{{/unless}}"type="button" on-click="deleteItem">Löschen</button>
-                <input class="mwf-button-prio mwf-right-align mwf-button" type="submit" value="{{#if item.created}}Ändern{{else}}Hinzufügen{{/if}}"/>
-            </div>
-        </form>
-    </main>
-</div>
+
 
 <div data-mwf-templatename="mediaItemMenu" class="mwf-listitemmenu mwf-databind mwf-template mwf-dialog mwf-popup">
     <header>
